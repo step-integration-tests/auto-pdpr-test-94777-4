@@ -7,15 +7,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: amannn/action-semantic-pull-request@v5
+      - uses: step-security/action-semantic-pull-request@v6
         with:
           types: feat,fix,chore
 
-      - uses: fkirc/skip-duplicate-actions@v5
+      - uses: step-security/skip-duplicate-actions@v5
         with:
           do_not_skip: '["release"]'
 
-      - uses: chetan/git-restore-mtime-action@v1
+      - uses: step-security/git-restore-mtime-action@v2
         with:
           pattern: '**/*'
           
@@ -41,7 +41,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DISABLE_ERRORS: true
 
-      - uses: tespkg/actions-cache/restore@v1
+      - uses: step-security/s3-actions-cache/restore@v1
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest-code
     steps:
       - uses: actions/checkout@v1
-      - uses: actions/checkout-test@v1
+      - uses: step-security/dynamodb-actions@v1
 
   lint5:
     runs-on: self-hosted
